@@ -1,0 +1,122 @@
+/** Given an array of integers of size n. We have to pick k numbers from this array.
+The number can be picked only from the beginning or from the end of the array.
+
+Write an algorithm/program to maximize the sum of k numbers picked from the array
+
+Input: arr[] = [1, 2, 3, 4, 5, 6, 1], k = 3
+Output: 12
+Explanation: 1+5+6
+
+Input: arr[] = [8, 4, 4, 8, 12, 3, 2, 9], K = 3
+Output: 21
+Explanation: 8+9+4
+
+8,2,2,5,6,1,9,1,5, K = 3
+8,5,2 = 15 
+
+8,2,2,6,1,12,1,5 K = 3
+
+1) Pick max of index 0 or n-1 and add to the result.  Repeat this K times
+2) Pick K from beginning or end and sum and check 
+
+8,2,2,6,1,12,1,5
+
+1) a1 = 8+2+2 = 12, a2 = 12+1+5 = 17
+2) 6C3
+	
+Temp = 8,2,2,12,1,5
+
+k=3
+0,1,2
+0,1,n-1
+0,n-1,n-2
+n-1,n-2,n-3
+
+k=4
+0,1,2,3
+0,1,2,n-1
+0,1,n-2,n-1
+0,n-3,n-2,n-1
+n-1,n-2,n-3,n-4
+
+0,1,2,3
+n-1,0,1,2
+n-2,n-1,0,1
+n-3,n-2,n-1,0
+n-4,n-3,n-2,n-1,0
+
+
+for i = 0 to k-1:
+	sum = sum + arr[i]
+	maxsum = sum
+	for j = 1 to k:
+		sum = sum - arr[k - j] + arr[length - 1 - j]
+		if sum > maxsum:
+			maxsum = sum
+
+
+	 */
+
+	
+	List<Integer> getPossibleSums(int[] numbers, List<String> indices) {
+		List<Integer> sums = new ArrayList<Integer>();
+		
+		for (String indxStr : indices) {
+			
+			Integer sum = 0;
+			String[] idxs = indxStr.split(",");
+			
+			//Stopped here
+			
+		}
+		
+		
+		return sums;
+	}
+
+	List<String> getIndices(int n, int k) {
+		List<String> indices = new ArrayList<String>();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < k; i++) {
+			sb.append(i).append(",");
+		}
+		sb.deleteCharAt(sb.length()-1);
+		String base = sb.toString();
+		indices.add(base);
+		
+		///Add more
+		for (int i = 1; i <= k; i++) {
+			//String first = base.substring(0, base.indexOf(","));
+			//Integer fVal = Integer.valueOf(first);
+			int fVal = n-i;
+			
+			base = fVal + "," + base;
+			int lastComma = base.lastIndexOf(",");
+			base = base.substring(0, lastComma);
+			
+			indices.add(base);
+
+		}		
+		return indices;
+	}
+	
+	void athenaProb1(int[] numbers, int k) {
+		List<String> indices = getIndices(numbers.length, k);
+		System.out.println(indices);
+		
+		
+		
+		
+	}
+	
+	
+	void testCases() {
+		int[] num = {8,2,2,6,1,12,1,5};
+		int limit = 4;
+		athenaProb1(num, limit);
+		
+		
+	}
+	public static void call() {
+		new CodingPractice().testCases();
+	}
